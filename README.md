@@ -19,7 +19,8 @@ Store the list of activities in the browser session storage.
 
 Use React with vanilla JS or TypeScript.
 
-**Testing**
+**Testing:**
+
 Use any testing framework you wish, and test the critical path(s) of your application. In particular, demonstrate that you can write tests for algorithm-heavy code, but there's no need to have 100% coverage of tests. *Please avoid snapshot testing*
 
 # Expectations
