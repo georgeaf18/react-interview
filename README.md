@@ -19,6 +19,9 @@ Store the list of activities in the browser session storage.
 
 Use React with vanilla JS or TypeScript.
 
+**Testing**
+Use any testing framework you wish, and test the critical path(s) of your application. In particular, demonstrate that you can write tests for algorithm-heavy code, but there's no need to have 100% coverage of tests. *Please avoid snapshot testing*
+
 # Expectations
 Implement the above listed requirements in a manner you see fitting. Focus more on functional implementation than on look and feel.
 Demonstrate design and implementation aspects you feel are important in a software project.
