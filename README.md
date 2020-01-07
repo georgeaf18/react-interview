@@ -13,7 +13,8 @@ If an activity is still in progress, end time should be empty and duration shoul
 
 **Data storing:**
 
-Store the list of activities in the browser session storage.
+- Store the list of activities in the browser session storage.
+- Previously-stored activities should be shown on page load if they exist already in session storage. 
 
 **Framework:**
 
