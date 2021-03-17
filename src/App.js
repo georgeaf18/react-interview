@@ -9,19 +9,15 @@ function App() {
   const initialActivities = () => JSON.parse(window.sessionStorage.getItem("activities")) || []
   const [activities, setActivities] = useState(initialActivities);
   const activityDescriptionRef = useRef();
-  const [activeActivity, setActiveActivity] = useState(null);
-  const [currentDuration, setCurrentDuration] = useState(0);
-  const intervalRef = useRef(null)
+  const storedActiveActivity = () => JSON.parse(window.sessionStorage.getItem("activeActivity")) || null;
+  const [activeActivity, setActiveActivity] = useState(storedActiveActivity);
 
   const handleStartActivity = (e) => {
     const description = activityDescriptionRef.current.value;
 
     if (description === "") return
 
-    intervalRef.current = setInterval(() => {
-      setCurrentDuration((lapse) => lapse + 1)
-    }, 1000)
-    setActiveActivity({ id: uuidv4(), description: description, start: getCurrentTime(), end: "", duration: currentDuration })
+    setActiveActivity({ id: uuidv4(), description: description, start: getCurrentTime(), end: "", duration: "" })
 
     activityDescriptionRef.current.value = null;
   }
@@ -30,10 +26,10 @@ function App() {
     const activityToEnd = activeActivity;
 
     activityToEnd['end'] = getCurrentTime();
-    activeActivity['duration'] = currentDuration;
 
-    clearInterval(intervalRef.current)
-    setCurrentDuration(0)
+    const duration = new Date(activityToEnd.end).getTime() - new Date(activityToEnd.start).getTime();
+    activeActivity['duration'] = duration;
+
 
 
     setActiveActivity(null);
@@ -43,10 +39,13 @@ function App() {
   }
 
   useEffect(() => {
-    if (activeActivity != null)
+    if (activeActivity !== null && JSON.parse(window.sessionStorage.getItem("activeActivity")) === null) {
       setActivities(prevActs => {
         return [activeActivity, ...prevActs]
       })
+    }
+
+    window.sessionStorage.setItem("activeActivity", JSON.stringify(activeActivity));
   }, [activeActivity])
 
   useEffect(() => {
@@ -56,7 +55,7 @@ function App() {
   const renderClockInOut = () => {
     return activeActivity === null ? (
       <div className=" m-3">
-        <input ref={activityDescriptionRef} className="form-control mr-2" placeholder="Enter new activty"></input>
+        <input ref={activityDescriptionRef} className="form-control mr-2" placeholder="Enter new activity description"></input>
         <Button onClick={handleStartActivity} variant="success mr-2 mt-2 w-100">Start</Button>
       </div>
     ) :
@@ -69,11 +68,7 @@ function App() {
   }
 
   const getCurrentTime = () => {
-
-    const hours = new Date().getHours()
-    const minutes = new Date().getMinutes();
-
-    return `${hours > 12 ? hours - 12 : hours}:${minutes < 10 ? '0' + minutes : minutes} ${hours >= 12 ? "PM" : "AM"}`;
+    return new Date();
   }
 
   return (
@@ -82,7 +77,7 @@ function App() {
       <h3>Activity Tracker</h3>
       {renderClockInOut()}
 
-      <ActivityHistory activities={activities} currentDuration={currentDuration} />
+      <ActivityHistory activities={activities} activeActivity={activeActivity} />
     </div>
   );
 }
