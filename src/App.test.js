@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, getTestById } from '@testing-library/react';
 import App from './App';
-import Enzyme, { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 test('renders text', () => {
   render(<App />);
@@ -9,7 +9,6 @@ test('renders text', () => {
 });
 
 describe("App.js", () => {
-  const onFunction = jest.fn();
   let wrapper;
   beforeEach(() => {
     wrapper = mount(<App />);

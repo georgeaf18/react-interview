@@ -12,7 +12,7 @@ function App() {
   const storedActiveActivity = () => JSON.parse(window.sessionStorage.getItem("activeActivity")) || null;
   const [activeActivity, setActiveActivity] = useState(storedActiveActivity);
 
-  const handleStartActivity = (e) => {
+  const handleStartActivity = () => {
     const description = activityDescriptionRef.current.value;
 
     if (description === "") return
@@ -20,7 +20,6 @@ function App() {
     setActiveActivity({ id: uuidv4(), description: description, start: getCurrentTime(), end: "", duration: "" })
 
     activityDescriptionRef.current.value = null;
-    console.log(React.version)
   }
 
   const stopActivity = () => {
