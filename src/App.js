@@ -20,6 +20,7 @@ function App() {
     setActiveActivity({ id: uuidv4(), description: description, start: getCurrentTime(), end: "", duration: "" })
 
     activityDescriptionRef.current.value = null;
+    console.log(React.version)
   }
 
   const stopActivity = () => {
@@ -55,14 +56,14 @@ function App() {
   const renderClockInOut = () => {
     return activeActivity === null ? (
       <div className=" m-3">
-        <input ref={activityDescriptionRef} className="form-control mr-2" placeholder="Enter new activity description"></input>
-        <Button onClick={handleStartActivity} variant="success mr-2 mt-2 w-100">Start</Button>
+        <input ref={activityDescriptionRef} className=" main-input form-control mr-2" placeholder="Enter new activity description"></input>
+        <Button onClick={handleStartActivity} className="startButton" variant="success mr-2 mt-2 w-100">Start</Button>
       </div>
     ) :
       (
         <div className=" m-3">
           <p>{activeActivity.description}</p>
-          <Button onClick={stopActivity} variant="danger mt-2 w-100">Finish current task</Button>
+          <Button onClick={stopActivity} className="endButton" variant="danger mt-2 w-100">Finish current task</Button>
         </div>
       )
   }

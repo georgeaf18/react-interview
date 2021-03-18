@@ -55,7 +55,7 @@ export default function ActivityHistory({ activities, activeActivity }) {
                             <tr key={act.id}>
                                 <td>{formatTime(act.start)}</td>
                                 <td>{formatTime(act.end)}</td>
-                                <td>{act.end === "" ? formatDuration(currentDuration) : formatDuration(act.duration)}</td>
+                                <td>{formatDuration(act.end === "" ? currentDuration : act.duration)}</td>
                                 <td>{act.description}</td>
                             </tr>
                         )
